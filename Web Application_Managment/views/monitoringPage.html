@@ -1,0 +1,245 @@
+  <!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+  <title>MONITORING_PAGE</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <script src="../socket.io-client/dist/socket.io.js"></script>
+  <script src="/function.js"></script>
+  <style>
+    body{
+      margin: 0%;
+      padding: 0%;
+      background:white;
+      font-family: "Montserrat", sans-serif;
+    }
+    .containerN-top{
+      width: 100%;
+      overflow: auto;
+      font-size: 28px;
+      background-color: #D8CEF6;
+    }
+    .containerN-top a{
+      color: white;
+      padding: 15px;
+      text-decoration: none;
+    }
+    .containerN-top a:hover{
+      border-radius: 20px;
+      background-color: #FA5858;
+    }
+    .containerN-top input{
+      width : 100px;
+      float : right;
+      border: 2px solid #ccc;
+      padding: 13px 20px 13px 40px;
+      font-size: 16px;
+      margin-top: 10px;
+      box-sizing: border-box;
+      border-radius: 4px;
+      background-color: white;
+      -webkit-transition: width 0.4s ease-in-out;
+      transition: width 0.4s ease-in-out;
+    }
+    .containerN-top input:focus { 
+      width : 40%;
+    }
+    .containerN-top button{
+      color: white;
+      border : none;
+      padding : 15px;
+      font-size: 28px;
+      margin-top : 3px;
+      background : #D8CEF6;
+      text-decoration: none;
+    }
+    .containerN-top button:hover{
+      border-radius: 20px;
+      background-color:#FA5858;
+    }
+    .containerN-left{
+      top : 0;
+      left : 0;
+      width: 60px;
+      height : 100%;
+      z-index : 1;
+      padding : 16px;
+      font-size: 28px;
+      position : fixed;
+      overflow-x: hidden;
+      background-color: #D8CEF6;
+    }
+    .containerN-left a{
+      float : left;
+      color : white;
+      border : none;
+      padding : 15px;
+      text-decoration: none;
+    }
+    .containerN-left a:hover{
+      border-radius: 20px;
+      background-color: #A9A9F5;
+    }
+    .active{
+      border-radius: 20px;
+      background-color:#FA5858;
+    }
+    @media screen and (max-width: 500px){
+      .containerN a{
+        float: none;
+        display: block;
+      }
+    }
+    .containerS{
+      width: 100%; 
+      color: white;
+      text-align: center;
+    }
+    .containerS p{
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .float-frame{
+      float : left;
+      padding : 20px;
+      border : 0px solid #ddd;
+    }
+    .button{
+      color: white;
+      width: 260px;
+      height: 40px;
+      margin: 14px auto;
+      border: none;
+      cursor: pointer;
+      display: block;
+      font-size: 18px;
+      text-align: center;
+      background: #3498db;
+      font-family: "Montserrat", sans-serif;
+      border-radius: 10px;
+    }
+    .containerF {
+      color: white;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+    <nav>
+     <div class = "containerN-left">
+      <a href="/homeAPage" name="homeAP"><i class="fa fa-home"></i></a>
+      <a class="active" href="/monitoringPage" name="camera"><i class="fa fa-video-camera"></i></a>
+      <a href="/messagePage" name="messageP"><i class="fa fa-envelope"></i></a>
+      <a href="/userSettingPage" name="userSetP"><i class="fa fa-user-circle"></i></a>
+      <a href="/helpPage" name="helpPage"><i class="fa fa-question-circle"></i></a>
+     </div>
+     <!--search Page 완성후 재코딩하기!!-->
+      <div class="containerN-top">
+        <a href="/loginPage" style="float:right"><i class="fa fa-sign-out"></i></a>
+        <button type="submit" style="float:right"><i class="fa fa-search"></i></button>
+        <input type="text" name = "search">
+      </div>
+    </nav>
+    
+    <section class="containerS">
+    <!--<p>Welcome to Insert title here</p>-->  
+      <div class="float-frame" id="mainMonitoring">
+        <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+        codebase="http://download.videolan.org/pub/videolan/vlc/2.2.4/win32/vlc-2.2.4-win32.exe" width="window.innerWidth"
+        height="window.innerHeight" id="vlc" events="True">
+        <param name="Src" value="rtsp://210.119.87.226:554/video1" width=100% hieght=100% />
+        <param name="autostart" value="true" />
+        <param name="ShowDisplay" value="false" />
+        <param name="AutoLoop" value="false" />
+        <param name="AutoPlay" value="true" />
+        <script type="text/javascript">
+          while(1){
+            <EMBED pluginspage="http://www.videolan.org" type="application/x-vlc-plugin" progid="VideoLAN.VLCPlugin.2"
+            width="780" height="580" name="vlc">
+            </EMBED>
+          }
+        </script>
+        <EMBED pluginspage="http://www.videolan.org" type="application/x-vlc-plugin" progid="VideoLAN.VLCPlugin.2"
+      width="780" height="580" name="vlc">
+        </EMBED>
+      </object>
+    </div>
+
+    <div class="float-frame" id="subMonitoring-A">  
+      <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+        codebase="http://download.videolan.org/pub/videolan/vlc/2.2.4/win32/vlc-2.2.4-win32.exe" width="window.innerWidth"
+        height="window.innerHeight" id="vlc" events="True">
+        <param name="Src" value="rtsp://210.119.87.226:554/video1" width=100% hieght=100% />
+        <param name="autostart" value="true" />
+        <param name="ShowDisplay" value="false" />
+        <param name="AutoLoop" value="false" />
+        <param name="AutoPlay" value="true" />
+        <script type="text/javascript">
+          while(1){
+            <EMBED pluginspage="http://www.videolan.org" type="application/x-vlc-plugin" progid="VideoLAN.VLCPlugin.2"
+            width="390" height="270" name="vlc">
+            </EMBED>
+          }
+        </script>
+        <EMBED pluginspage="http://www.videolan.org" type="application/x-vlc-plugin" progid="VideoLAN.VLCPlugin.2"
+      width="390" height="270" name="vlc">
+        </EMBED>
+      </object>
+      </div>
+
+      <div class="float-frame" id="subMonitoring-B">
+          <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+          codebase="http://download.videolan.org/pub/videolan/vlc/2.2.4/win32/vlc-2.2.4-win32.exe" width="window.innerWidth"
+          height="window.innerHeight" id="vlc" events="True">
+          <param name="Src" value="rtsp://210.119.87.226:554/video1" width=100% hieght=100% />
+          <param name="autostart" value="true" />
+          <param name="ShowDisplay" value="false" />
+          <param name="AutoLoop" value="false" />
+          <param name="AutoPlay" value="true" />
+          <script type="text/javascript">
+            while(1){
+              <EMBED pluginspage="http://www.videolan.org" type="application/x-vlc-plugin" progid="VideoLAN.VLCPlugin.2"
+              width="390" height="270" name="vlc">
+              </EMBED>
+            }
+          </script>
+          <EMBED pluginspage="http://www.videolan.org" type="application/x-vlc-plugin" progid="VideoLAN.VLCPlugin.2"
+        width="390" height="270" name="vlc">
+          </EMBED>
+        </object>
+      </div>
+
+      <div class="float-frame" id="subMonitoring-C">
+          <object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+          codebase="http://download.videolan.org/pub/videolan/vlc/2.2.4/win32/vlc-2.2.4-win32.exe" width="window.innerWidth"
+          height="window.innerHeight" id="vlc" events="True">
+          <param name="Src" value="rtsp://210.119.87.226:554/video1" width=100% hieght=100% />
+          <param name="autostart" value="true" />
+          <param name="ShowDisplay" value="false" />
+          <param name="AutoLoop" value="false" />
+          <param name="AutoPlay" value="true" />
+          <script type="text/javascript">
+            while(1){
+              <EMBED pluginspage="http://www.videolan.org" type="application/x-vlc-plugin" progid="VideoLAN.VLCPlugin.2"
+              width="390" height="270" name="vlc">
+              </EMBED>
+            }
+            
+          </script>
+          <EMBED pluginspage="http://www.videolan.org" type="application/x-vlc-plugin" progid="VideoLAN.VLCPlugin.2"
+        width="390" height="270" name="vlc">
+          </EMBED>
+        </object>
+      </div>
+      <div>
+        <input class="button" type="submit" value="SEND MESSAGE" onclick="send()"></input>
+      </div>
+    </section>
+    <footer class="containerF">
+      <p>@by_YunGyeung_Gwon</p>
+    </footer>
+  </div>
+</body>
+</html>
